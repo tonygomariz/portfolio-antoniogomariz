@@ -1,6 +1,35 @@
-// js/main.js - VERSIÓN LIMPIA
+// js/main.js - CÓDIGO COMPLETO
 
-// Page loader
+// =================================================================
+// 1. FIX: BFCache (Pantalla negra al volver atrás)
+// =================================================================
+window.addEventListener('pageshow', (event) => {
+  // Si la página se carga desde la memoria caché (botón atrás/adelante)
+  if (event.persisted) {
+    const transition = document.querySelector('.page-transition');
+    const loader = document.querySelector('.loader');
+    
+    // Forzamos a quitar la cortina negra
+    if (transition) {
+      transition.style.transform = ''; // Vuelve al estado original del CSS
+      // Por seguridad, forzamos ocultarla
+      setTimeout(() => {
+         transition.style.opacity = '0';
+         transition.style.transform = 'translateY(100%)'; 
+      }, 10);
+    }
+    
+    // Aseguramos que el loader no aparezca de nuevo
+    if (loader) {
+      loader.classList.add('hidden');
+      loader.style.display = 'none';
+    }
+  }
+});
+
+// =================================================================
+// 2. LOADER INICIAL
+// =================================================================
 window.addEventListener('load', () => {
   const loader = document.querySelector('.loader');
   if (loader) {
@@ -11,7 +40,9 @@ window.addEventListener('load', () => {
   }
 });
 
-// Mobile menu toggle
+// =================================================================
+// 3. MENU MÓVIL
+// =================================================================
 const menuToggle = document.querySelector('.menu-toggle');
 const navbar = document.querySelector('.navbar');
 const navLinks = document.querySelectorAll('.navbar a');
@@ -38,7 +69,9 @@ if (menuToggle && navbar) {
   });
 }
 
-// Page transitions (IGNORANDO targets externos y anchors vacíos)
+// =================================================================
+// 4. TRANSICIONES DE PÁGINA (LINKS)
+// =================================================================
 document.querySelectorAll('a:not([target="_blank"]):not([href^="#"]):not(.lightbox-trigger)').forEach(link => {
   link.addEventListener('click', (e) => {
     const href = link.getAttribute('href');
@@ -47,6 +80,7 @@ document.querySelectorAll('a:not([target="_blank"]):not([href^="#"]):not(.lightb
     e.preventDefault();
     
     const transition = document.querySelector('.page-transition');
+    // Activamos la cortina
     if (transition) transition.style.transform = 'translateY(0)';
     
     setTimeout(() => {
@@ -55,7 +89,9 @@ document.querySelectorAll('a:not([target="_blank"]):not([href^="#"]):not(.lightb
   });
 });
 
-// Smooth scroll
+// =================================================================
+// 5. SMOOTH SCROLL (ANCHORS)
+// =================================================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
@@ -74,7 +110,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Scroll animations
+// =================================================================
+// 6. ANIMACIONES SCROLL
+// =================================================================
 const header = document.querySelector('header');
 const sections = document.querySelectorAll('.section');
 
@@ -90,7 +128,6 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// Trigger animations on load
 setTimeout(() => {
   sections.forEach(section => {
     const sectionTop = section.getBoundingClientRect().top;
@@ -98,7 +135,9 @@ setTimeout(() => {
   });
 }, 100);
 
-// Active navigation highlight
+// =================================================================
+// 7. ACTIVE NAVIGATION HIGHLIGHT
+// =================================================================
 function setActiveNavigation() {
   const sections = document.querySelectorAll('section[id]');
   const navItems = document.querySelectorAll('.nav-item');
