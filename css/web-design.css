@@ -1,0 +1,220 @@
+/* Web Design Page Specific Styles */
+.webdesign-project {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.project-info {
+  display: flex;
+  margin-bottom: 3rem;
+}
+
+.project-description {
+  flex: 2;
+  padding: 2rem;
+  background-color: var(--bg-color);
+}
+
+.project-description h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.project-description h1::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary-color);
+  bottom: 0;
+  left: 0;
+  transition: var(--transition-normal);
+}
+
+.project-description:hover h1::after {
+  width: 100px;
+}
+
+.project-description p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* =========================================
+   KEY TECHNOLOGIES - Carousel estilo Hunting Gear
+   ========================================= */
+.project-tech {
+  flex: 1;
+  padding: 2rem 0;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-tech h2 {
+  color: #000;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.tech-carousel-container {
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.tech-carousel-track {
+  display: flex;
+  width: calc(150px * 10);
+  animation: tech-scroll 15s linear infinite;
+}
+
+.tech-group {
+  display: flex;
+}
+
+.tech-item {
+  width: 150px;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tech-item i {
+  font-size: 2.5rem;
+  color: #000;
+  margin-bottom: 0.8rem;
+}
+
+.tech-item span {
+  color: #000;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+@keyframes tech-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* =========================================
+   PROJECT SHOWCASE - Estilo tarjetas de index
+   ========================================= */
+.project-showcase {
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.project-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.5s ease;
+  filter: grayscale(0.8);
+}
+
+.project-image:hover img {
+  transform: scale(1.08);
+  filter: grayscale(0);
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: var(--transition-normal);
+}
+
+.project-image:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-overlay .view-more {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--primary-color);
+  padding: 0.8rem 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  transform: translateY(20px);
+  opacity: 0;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.project-image:hover .project-overlay .view-more {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.project-overlay .view-more:hover {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .project-info {
+    flex-direction: column;
+  }
+  
+  /* FIX: Full Width Carousel en Mobile (Borde a Borde) */
+  .project-tech {
+    padding: 3rem 0;
+    width: 100vw; /* Fuerza el ancho total de la ventana */
+    margin-left: 50%; /* Mueve el elemento al centro */
+    transform: translateX(-50%); /* Lo centra perfectamente ignorando el padding del padre */
+    border-radius: 0;
+  }
+
+  .project-description {
+    padding: 2rem 0; /* Ajuste visual del texto */
+  }
+}
+
+@media (max-width: 768px) {
+  .project-showcase {
+    height: 400px;
+  }
+}
